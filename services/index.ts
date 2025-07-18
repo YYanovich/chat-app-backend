@@ -86,6 +86,15 @@ export const refreshAccessToken = async (refreshToken: string) => {
 const app = express();
 const PORT = 5001;
 
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:5173", "https://chat-app-frontend-deploy-psi.vercel.app"],
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use("/api", router);
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -195,14 +204,6 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "http://localhost:5173", "https://chat-app-frontend-deploy-psi.vercel.app"],
-    credentials: true,
-  })
-);
-app.use(express.json());
-app.use("/api", router);
 
 mongoose
   .connect(process.env.MONGO_URI!) 
