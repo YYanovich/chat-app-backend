@@ -202,7 +202,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use("/api/auth", router);
+app.use("/api", router);
 
 mongoose
   .connect(process.env.MONGO_URI!) 
