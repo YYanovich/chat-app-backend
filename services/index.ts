@@ -9,8 +9,8 @@ import bcrypt from "bcrypt";
 import User from "../models/User";
 import Message from "../models/Message"; 
 
-const ACCESS_SECRET = "REDACTED";
-const REFRESH_SECRET = "REDACTED";
+const ACCESS_SECRET = process.env.ACCESS_SECRET || "default_access_secret";
+const REFRESH_SECRET = process.env.REFRESH_SECRET || "default_refresh_secret";
 
 //ТОКЕНИ ТА РОБОТА З КОРИСТУВАЧЕМ
 export const registerUser = async (username: string, password: string) => {
@@ -89,7 +89,7 @@ const PORT = 5001;
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "http://localhost:5173", "https://chat-app-frontend-deploy-psi.vercel.app/"],
+    origin: ["http://localhost:3000", "http://localhost:5173", "https://chat-app-frontend-deploy-psi.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -197,17 +197,15 @@ io.on("connection", (socket) => {
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173", "https://chat-app-frontend-deploy-psi.vercel.app/"],
+    origin: ["http://localhost:3000", "http://localhost:5173", "https://chat-app-frontend-deploy-psi.vercel.app"],
     credentials: true,
   })
 );
 app.use(express.json());
-app.use(router);
+app.use("/api/auth", router);
 
 mongoose
-  .connect(
-    "mongodb+srv://Yanovich:REDACTED@cluster0.pj5zpn6.mongodb.net/ChatDB?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGO_URI!) 
   .then(() => console.log("Mongo бд підключена"))
   .catch((err) => console.error("Помилка бази даних:", err));
 
