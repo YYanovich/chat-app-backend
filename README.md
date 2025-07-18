@@ -51,4 +51,4 @@
     ```bash
     npm start
     ```
-5.  
+5.  **Важливо:** Для тестування функціоналу потрібен запущений [клієнт (фронтенд)](https://github.com/YYanovich/chat-app-frontend).
