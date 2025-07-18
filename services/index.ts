@@ -197,7 +197,7 @@ io.on("connection", (socket) => {
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"],
+    origin: ["http://localhost:3000", "http://localhost:5173", "https://chat-app-frontend-deploy-psi.vercel.app/"],
     credentials: true,
   })
 );
