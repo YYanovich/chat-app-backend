@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 
-const ACCESS_SECRET = "REDACTED";
+const ACCESS_SECRET = process.env.ACCESS_SECRET || "default_access_secret";
 
 declare global {
   namespace Express {
