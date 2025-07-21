@@ -200,7 +200,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("typing", () => {
-    socket.broadcast.emit("responseTyping", `${username} is typing`);
+    socket.broadcast.emit("responseTyping", `${username} пише`);
   });
 
   socket.on("disconnect", () => {
