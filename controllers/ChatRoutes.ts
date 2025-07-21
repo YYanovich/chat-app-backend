@@ -1,9 +1,5 @@
 import express from "express";
-import {
-  registerUser,
-  loginUser,
-  refreshAccessToken,
-} from "../services/index";
+import { registerUser, loginUser, refreshAccessToken } from "../services/index";
 import User from "../models/User";
 import Message from "../models/Message";
 import { protect } from "../middleware/authMiddleware";
@@ -15,8 +11,15 @@ router.post(
   async (req: express.Request, res: express.Response) => {
     try {
       const { username, password } = req.body;
-      const result = await registerUser(username, password);
-      res.status(201).json(result);
+      // 👇 ОСЬ ТУТ ВИПРАВЛЕННЯ
+      const {
+        accessToken,
+        refreshToken,
+        username: registeredUsername,
+      } = await registerUser(username, password);
+      res
+        .status(201)
+        .json({ accessToken, refreshToken, username: registeredUsername });
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
