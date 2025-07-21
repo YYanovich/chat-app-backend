@@ -1,14 +1,12 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-interface RefreshToken {
-  token: string;
-  createdAt?: Date;
-}
-
 export interface IUser extends Document {
   username: string;
   password: string;
-  refreshToken: RefreshToken;
+  refreshToken?: {
+    token: string;
+    createdAt?: Date;
+  };
 }
 
 const userSchema = new Schema<IUser>(
@@ -16,7 +14,7 @@ const userSchema = new Schema<IUser>(
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     refreshToken: {
-      token: { type: String, required: true },
+      token: { type: String, required: false }, 
       createdAt: { type: Date, default: Date.now },
     },
   },

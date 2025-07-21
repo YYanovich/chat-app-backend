@@ -11,7 +11,6 @@ router.post(
   async (req: express.Request, res: express.Response) => {
     try {
       const { username, password } = req.body;
-      // 👇 ОСЬ ТУТ ВИПРАВЛЕННЯ
       const {
         accessToken,
         refreshToken,
